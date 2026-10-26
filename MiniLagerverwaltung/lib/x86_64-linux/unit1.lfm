@@ -1,0 +1,177 @@
+object FormMain: TFormMain
+  Left = 1719
+  Height = 857
+  Top = 31
+  Width = 1075
+  Caption = 'MiniLagerverwaltung,'
+  ClientHeight = 857
+  ClientWidth = 1075
+  Color = clSilver
+  Position = poScreenCenter
+  object LabelTitel: TLabel
+    Left = 232
+    Height = 64
+    Top = 48
+    Width = 584
+    AutoSize = False
+    Caption = 'Mini-Lagerverwaltung'
+    Color = clHighlight
+    Font.Height = -37
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentColor = False
+    ParentFont = False
+  end
+  object ButtonHinzufuegen: TButton
+    Left = 16
+    Height = 41
+    Top = 352
+    Width = 150
+    Caption = 'Hinzufügen'
+    TabOrder = 1
+    OnClick = ButtonHinzufuegenClick
+  end
+  object ButtonBearbeiten: TButton
+    Left = 192
+    Height = 41
+    Top = 352
+    Width = 150
+    Caption = 'Bearbeiten'
+    TabOrder = 2
+  end
+  object ButtonLoeschen: TButton
+    Left = 400
+    Height = 41
+    Top = 352
+    Width = 150
+    Caption = 'Löschen'
+    Color = clRed
+    TabOrder = 3
+  end
+  object EditArtikelnummer: TEdit
+    Left = 40
+    Height = 40
+    Top = 216
+    Width = 200
+    AutoSize = False
+    TabOrder = 0
+    TextHint = 'Artikelnummer'
+  end
+  object EditBezeichnung: TEdit
+    Left = 40
+    Height = 40
+    Top = 288
+    Width = 200
+    AutoSize = False
+    TabOrder = 4
+    TextHint = 'Bezeichnung'
+  end
+  object EditEinzelpreis: TEdit
+    Left = 248
+    Height = 40
+    Top = 216
+    Width = 200
+    AutoSize = False
+    TabOrder = 5
+    TextHint = 'Einzelpreis'
+  end
+  object EditMindestbestand: TEdit
+    Left = 248
+    Height = 40
+    Top = 288
+    Width = 200
+    AutoSize = False
+    TabOrder = 6
+    TextHint = 'Mindestbestand'
+  end
+  object StringGrid1: TStringGrid
+    Left = 8
+    Height = 440
+    Top = 408
+    Width = 595
+    AutoFillColumns = True
+    RowCount = 20
+    TabOrder = 7
+    ColWidths = (
+      64
+      128
+      127
+      127
+      127
+    )
+  end
+  object ButtonWareneingang: TButton
+    Left = 608
+    Height = 42
+    Top = 351
+    Width = 99
+    Caption = 'Wareneingang'
+    TabOrder = 8
+    OnClick = ButtonWareneingangClick
+  end
+  object ButtonWarenausgang: TButton
+    Left = 752
+    Height = 41
+    Top = 352
+    Width = 139
+    Caption = 'Warenausgang'
+    TabOrder = 9
+  end
+  object ButtonStorno: TButton
+    Left = 936
+    Height = 41
+    Top = 352
+    Width = 107
+    Caption = 'Storno'
+    TabOrder = 10
+  end
+  object StringGrid2: TStringGrid
+    Left = 608
+    Height = 448
+    Top = 408
+    Width = 464
+    AutoFillColumns = True
+    RowCount = 10
+    TabOrder = 11
+    ColWidths = (
+      64
+      100
+      100
+      99
+      99
+    )
+  end
+  object IBConnection1: TIBConnection
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = '/database/devanas.fdb'
+    KeepConnection = False
+    Params.Strings = (
+      'Port=3050'
+    )
+    Password = 'slu01'
+    Transaction = SQLTransaction1
+    UserName = 'SYSDBA'
+    HostName = 'hydbdev1'
+    CheckTransactionParams = False
+    UseConnectionCharSetIfNone = False
+    Left = 48
+    Top = 128
+  end
+  object SQLQuery1: TSQLQuery
+    FieldDefs = <>
+    Database = IBConnection1
+    Transaction = SQLTransaction1
+    Params = <>
+    Macros = <>
+    Left = 248
+    Top = 128
+  end
+  object SQLTransaction1: TSQLTransaction
+    Active = False
+    Database = IBConnection1
+    Left = 152
+    Top = 128
+  end
+end
