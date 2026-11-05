@@ -150,10 +150,10 @@ object FormMain: TFormMain
     Params.Strings = (
       'Port=3050'
     )
-    Password = 'slu01'
+    Password = '!!!!'
     Transaction = SQLTransaction1
-    UserName = 'SYSDBA'
-    HostName = 'hydbdev1'
+    UserName = '!!!!'
+    HostName = '!!!!'
     CheckTransactionParams = False
     UseConnectionCharSetIfNone = False
     Left = 48
