@@ -1,0 +1,31 @@
+name: Lazarus Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code holen
+        uses: actions/checkout@v5
+
+      - name: Dateien anzeigen
+        run: find . -not -path './.git/*' | head -n 60
+
+      - name: Lazarus installieren
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fpc lazarus
+
+      - name: Projekt bauen
+        run: |
+          LPI=$(find . -name "*.lpi" -not -path "./backup/*" | head -n1)
+          if [ -z "$LPI" ]; then
+            echo "FEHLER: keine .lpi Datei gefunden"
+            exit 1
+          fi
+          echo "Baue: $LPI"
+          lazbuild "$LPI"
