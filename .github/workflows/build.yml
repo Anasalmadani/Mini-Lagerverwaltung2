@@ -1,31 +1,39 @@
-name: Lazarus Build
+name: Lazarus CI-CD
 
 on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Code holen
-        uses: actions/checkout@v5
+      - name: Repository herunterladen
+        uses: actions/checkout@v4
 
-      - name: Dateien anzeigen
-        run: find . -not -path './.git/*' | head -n 60
-
-      - name: Lazarus installieren
+      - name: Lazarus und Free Pascal installieren
         run: |
           sudo apt-get update
           sudo apt-get install -y fpc lazarus
 
-      - name: Projekt bauen
+      - name: Projekt finden und kompilieren
         run: |
-          LPI=$(find . -name "*.lpi" -not -path "./backup/*" | head -n1)
+          LPI=$(find . -name "*.lpi" -not -path "*/backup/*" | head -n 1)
+
           if [ -z "$LPI" ]; then
-            echo "FEHLER: keine .lpi Datei gefunden"
+            echo "Keine Lazarus-Projektdatei gefunden!"
             exit 1
           fi
-          echo "Baue: $LPI"
+
+          echo "Projekt: $LPI"
           lazbuild "$LPI"
+
+      - name: Programm als Artefakt bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: MiniLagerverwaltung-Linux
+          path: MiniLagerverwaltung/MiniLagerverwaltung
+          if-no-files-found: error

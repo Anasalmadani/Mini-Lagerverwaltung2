@@ -1,0 +1,182 @@
+object FormMain: TFormMain
+  Left = 1719
+  Height = 944
+  Top = 31
+  Width = 1344
+  Caption = 'MiniLagerverwaltung,'
+  ClientHeight = 944
+  ClientWidth = 1344
+  Color = clSilver
+  Position = poScreenCenter
+  object LabelTitel: TLabel
+    Left = 48
+    Height = 64
+    Top = 24
+    Width = 584
+    AutoSize = False
+    Caption = 'Mini-Lagerverwaltung'
+    Color = clHighlight
+    Font.Height = -37
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentColor = False
+    ParentFont = False
+  end
+  object ButtonHinzufuegen: TButton
+    Left = 352
+    Height = 40
+    Top = 208
+    Width = 150
+    Caption = 'Hinzufügen'
+    TabOrder = 1
+    OnClick = ButtonHinzufuegenClick
+  end
+  object ButtonBearbeiten: TButton
+    Left = 352
+    Height = 40
+    Top = 280
+    Width = 150
+    Caption = 'Bearbeiten'
+    TabOrder = 2
+    OnClick = ButtonBearbeitenClick
+  end
+  object ButtonLoeschen: TButton
+    Left = 352
+    Height = 40
+    Top = 344
+    Width = 150
+    Caption = 'Löschen'
+    Color = clRed
+    TabOrder = 3
+  end
+  object EditArtikelnummer: TEdit
+    Left = 40
+    Height = 40
+    Top = 208
+    Width = 250
+    AutoSize = False
+    TabOrder = 0
+    TextHint = 'Artikelnummer'
+  end
+  object EditBezeichnung: TEdit
+    Left = 40
+    Height = 40
+    Top = 264
+    Width = 250
+    AutoSize = False
+    TabOrder = 4
+    TextHint = 'Bezeichnung'
+  end
+  object EditEinzelpreis: TEdit
+    Left = 40
+    Height = 40
+    Top = 320
+    Width = 250
+    AutoSize = False
+    TabOrder = 5
+    TextHint = 'Einzelpreis'
+  end
+  object EditMindestbestand: TEdit
+    Left = 40
+    Height = 40
+    Top = 376
+    Width = 250
+    AutoSize = False
+    TabOrder = 6
+    TextHint = 'Mindestbestand'
+  end
+  object StringGrid1: TStringGrid
+    Left = 8
+    Height = 280
+    Top = 440
+    Width = 494
+    AutoFillColumns = True
+    FixedCols = 0
+    RowCount = 1
+    TabOrder = 7
+    OnClick = Panel1Click
+    OnPrepareCanvas = StringGrid1PrepareCanvas
+    ColWidths = (
+      99
+      99
+      98
+      98
+      98
+    )
+  end
+  object ButtonWareneingang: TButton
+    Left = 552
+    Height = 40
+    Top = 344
+    Width = 150
+    Caption = 'Wareneingang'
+    TabOrder = 8
+    OnClick = ButtonWareneingangClick
+  end
+  object ButtonWarenausgang: TButton
+    Left = 736
+    Height = 40
+    Top = 344
+    Width = 150
+    Caption = 'Warenausgang'
+    TabOrder = 9
+  end
+  object ButtonStorno: TButton
+    Left = 920
+    Height = 40
+    Top = 344
+    Width = 150
+    Caption = 'Storno'
+    TabOrder = 10
+  end
+  object StringGrid2: TStringGrid
+    Left = 512
+    Height = 280
+    Top = 440
+    Width = 800
+    AutoFillColumns = True
+    FixedCols = 0
+    RowCount = 1
+    TabOrder = 11
+    ColWidths = (
+      160
+      160
+      160
+      159
+      159
+    )
+  end
+  object IBConnection1: TIBConnection
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = '/database/devanas.fdb'
+    KeepConnection = False
+    Params.Strings = (
+      'Port=3050'
+    )
+    Password = 'slu01'
+    Transaction = SQLTransaction1
+    UserName = 'SYSDBA'
+    HostName = 'hydbdev1'
+    CheckTransactionParams = False
+    UseConnectionCharSetIfNone = False
+    Left = 48
+    Top = 128
+  end
+  object SQLQuery1: TSQLQuery
+    FieldDefs = <>
+    Database = IBConnection1
+    Transaction = SQLTransaction1
+    Params = <>
+    Macros = <>
+    Left = 248
+    Top = 128
+  end
+  object SQLTransaction1: TSQLTransaction
+    Active = False
+    Database = IBConnection1
+    Left = 152
+    Top = 128
+  end
+end
