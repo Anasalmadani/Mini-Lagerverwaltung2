@@ -1,4 +1,5 @@
-name: Lazarus CI-CD
+cat > .github/workflows/build.yml <<'EOF'
+name: Lazarus CI-CD with Docker
 
 on:
   push:
@@ -8,32 +9,34 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Repository herunterladen
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Lazarus und Free Pascal installieren
         run: |
           sudo apt-get update
           sudo apt-get install -y fpc lazarus
 
-      - name: Projekt finden und kompilieren
+      - name: Lazarus-Projekt kompilieren
         run: |
-          LPI=$(find . -name "*.lpi" -not -path "*/backup/*" | head -n 1)
-
-          if [ -z "$LPI" ]; then
-            echo "Keine Lazarus-Projektdatei gefunden!"
-            exit 1
-          fi
-
-          echo "Projekt: $LPI"
-          lazbuild "$LPI"
+          lazbuild MiniLagerverwaltung/MiniLagerverwaltung.lpi
 
       - name: Programm als Artefakt bereitstellen
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: MiniLagerverwaltung-Linux
           path: MiniLagerverwaltung/MiniLagerverwaltung
           if-no-files-found: error
+
+      - name: Docker Image bauen
+        run: |
+          docker build -t mini-lagerverwaltung:ci ./MiniLagerverwaltung
+
+      - name: Docker Container testen
+        run: |
+          docker run --rm --entrypoint sh mini-lagerverwaltung:ci \
+            -c 'test -x /app/MiniLagerverwaltung'
+EOF
